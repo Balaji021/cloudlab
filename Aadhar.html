@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Aadhar OTP Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-image: url('https://4.imimg.com/data4/SI/AM/MY-15332185/aadhaar512x512-500x500.png'); /* Replace with your image URL */
+      background-size: cover; /* Cover the entire viewport */
+      background-position: center; /* Center the background image */
+      margin: 0; /* Remove default margin */
+    }
+    .container {
+      background-color: rgba(255, 255, 255, 0.9); /* Slight transparency */
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 400px;
+    }
+    h2, h3 {
+      color: #333; /* Darker text color for better contrast */
+    }
+    input[type="text"], input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px; /* Slightly larger font */
+    }
+    input[type="submit"] {
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease; /* Smooth transition effect */
+    }
+    input[type="submit"]:hover {
+      background-color: #218838;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+    .captcha {
+      margin: 10px 0;
+      font-weight: bold;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Mock Aadhar OTP Login</h2>
+    <form id="aadharForm">
+      <label for="aadhar">Enter Aadhar Number</label>
+      <input type="text" id="aadhar" name="aadhar" placeholder="Enter your 12-digit Aadhar number" maxlength="12" required>
+      <input type="submit" value="Send OTP">
+      <p class="error" id="error"></p>
+    </form>
+
+    <div id="otpSection" style="display:none;">
+      <h3>Enter OTP</h3>
+      <form id="otpForm">
+        <input type="text" id="otp" placeholder="Enter OTP" required>
+        <div class="captcha" id="captcha"></div>
+        <input type="text" id="captchaInput" placeholder="Enter the text above" required>
+        <input type="submit" value="Verify OTP">
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const aadharForm = document.getElementById('aadharForm');
+    const otpSection = document.getElementById('otpSection');
+    const otpForm = document.getElementById('otpForm');
+    const captchaDisplay = document.getElementById('captcha');
+    let generatedOtp;
+    let captchaText;
+
+    // Function to generate a random string for CAPTCHA
+    function generateCaptcha() {
+      const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      let result = '';
+      for (let i = 0; i < 6; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      return result;
+    }
+
+    aadharForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const aadharNumber = document.getElementById('aadhar').value;
+      if (aadharNumber.length !== 12 || isNaN(aadharNumber)) {
+        document.getElementById('error').innerText = 'Please enter a valid 12-digit Aadhar number.';
+      } else {
+        document.getElementById('error').innerText = '';
+        generatedOtp = Math.floor(100000 + Math.random() * 900000); // Generate 6-digit OTP
+        alert('Mock OTP sent: ' + generatedOtp); // Simulate sending OTP
+        captchaText = generateCaptcha();
+        captchaDisplay.innerText = captchaText; // Display CAPTCHA
+        otpSection.style.display = 'block';
+      }
+    });
+
+    otpForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const otp = document.getElementById('otp').value;
+      const captchaInput = document.getElementById('captchaInput').value;
+      if (otp == generatedOtp && captchaInput === captchaText) {
+        alert('OTP verified successfully! You are logged in.');
+      } else {
+        alert('Invalid OTP or CAPTCHA. Please try again.');
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatic Appointment System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div id="registrationSection">
+            <h2>Register</h2>
+            <form id="registrationForm">
+                <label for="regName">Name:</label>
+                <input type="text" id="regName" required>
+
+                <label for="regEmail">Email:</label>
+                <input type="email" id="regEmail" required>
+
+                <label for="regPhone">Phone Number:</label>
+                <input type="text" id="regPhone" required>
+
+                <label for="regPassword">Password:</label>
+                <input type="password" id="regPassword" required>
+
+                <button type="submit">Register</button>
+            </form>
+            <p id="registrationMessage"></p> <!-- Registration message area -->
+        </div>
+
+        <div id="appointmentSection" style="display:none;">
+            <h2>Book Appointment</h2>
+            <form id="appointmentForm">
+                <label for="appDate">Appointment Date:</label>
+                <input type="date" id="appDate" required>
+
+                <label for="appTime">Appointment Time:</label>
+                <input type="time" id="appTime" required>
+
+                <label for="service">Service Required:</label>
+                <input type="text" id="service" required>
+
+                <button type="submit">Book Appointment</button>
+            </form>
+            <p id="appointmentMessage"></p> <!-- Appointment message area -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

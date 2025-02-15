@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        .error { color: red; font-size: 14px; }
+        body { font-family: Arial, sans-serif; background-color: #eef2f3; }
+        h1 { text-align: center; color: #333; }
+        .container { 
+            max-width: 600px; 
+            margin: 50px auto; 
+            padding: 20px; 
+            background-color: #f4f4f4; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, textarea, select { 
+            width: 100%; 
+            padding: 10px; 
+            margin-bottom: 15px; 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+        }
+        button { 
+            padding: 10px 15px; 
+            background-color: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+        }
+        .login-button {
+            position: absolute; 
+            top: 20px; 
+            right: 20px; 
+            padding: 10px 15px; 
+            background-color: #28a745; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            text-decoration: none; 
+        }
+        .login-button:hover { 
+            background-color: #218838; 
+        }
+        .language-select {
+            position: absolute; 
+            top: 20px; 
+            left: 20px; 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Language Selector -->
+    <div class="language-select">
+        <select id="language" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="ta">தமிழ் (Tamil)</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+        </select>
+    </div>
+
+    <h1 id="formTitle">Namma Health</h1>
+    <a href="login.html" class="login-button" id="loginButton">Login</a>
+
+    <div class="container">
+        <h2 id="registerTitle">Register</h2>
+        <form id="registerForm" onsubmit="return validateForm()">
+            <label for="name" id="nameLabel">Name</label>
+            <input type="text" id="name" name="name" required>
+            <span id="nameError" class="error"></span>
+
+            <label for="password" id="passwordLabel">Password</label>
+            <input type="password" id="password" name="password" required>
+            <span id="passwordError" class="error"></span>
+
+            <label for="age" id="ageLabel">Age</label>
+            <input type="number" id="age" name="age" required>
+            <span id="ageError" class="error"></span>
+
+            <label for="gender" id="genderLabel">Gender</label>
+            <select id="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Others</option>
+            </select>
+
+            <label for="address" id="addressLabel">Address</label>
+            <textarea id="address" name="address" rows="3" required></textarea>
+            <span id="addressError" class="error"></span>
+
+            <label for="pin_code" id="pinCodeLabel">Pin Code</label>
+            <input type="text" id="pin_code" name="pin_code" required>
+            <span id="pinCodeError" class="error"></span>
+
+            <label for="phone_number" id="phoneLabel">Phone Number</label>
+            <input type="text" id="phone_number" name="phone_number" required>
+            <span id="phoneNumberError" class="error"></span>
+
+            <button type="submit" id="registerButton">Register</button>
+        </form>
+    </div>
+
+    <script>
+        // Dictionary to store translations
+        const translations = {
+            en: {
+                formTitle: "Namma Health",
+                registerTitle: "Register",
+                nameLabel: "Name",
+                passwordLabel: "Password",
+                ageLabel: "Age",
+                genderLabel: "Gender",
+                maleLabel: "Male",
+                femaleLabel: "Female",
+                addressLabel: "Address",
+                pinCodeLabel: "Pin Code",
+                phoneLabel: "Phone Number",
+                registerButton: "Register",
+                loginButton: "Login"
+            },
+            ta: {
+                formTitle: "நம்மா ஹெல்த்",
+                registerTitle: "பதிவு செய்யவும்",
+                nameLabel: "பெயர்",
+                passwordLabel: "கடவுச்சொல்",
+                ageLabel: "வயது",
+                genderLabel: "பாலினம்",
+                maleLabel: "ஆண்",
+                femaleLabel: "பெண்",
+                addressLabel: "முகவரி",
+                pinCodeLabel: "பின் கோட்",
+                phoneLabel: "தொலைபேசி எண்",
+                registerButton: "பதிவு",
+                loginButton: "உள்நுழைக"
+            },
+            hi: {
+                formTitle: "नम्मा हेल्थ",
+                registerTitle: "पंजीकरण करें",
+                nameLabel: "नाम",
+                passwordLabel: "पासवर्ड",
+                ageLabel: "उम्र",
+                genderLabel: "लिंग",
+                maleLabel: "पुरुष",
+                femaleLabel: "महिला",
+                addressLabel: "पता",
+                pinCodeLabel: "पिन कोड",
+                phoneLabel: "फोन नंबर",
+                registerButton: "रजिस्टर करें",
+                loginButton: "लॉगिन"
+            }
+        };
+
+        // Function to change language based on selection
+        function changeLanguage() {
+            const selectedLanguage = document.getElementById("language").value;
+            const texts = translations[selectedLanguage];
+
+            document.getElementById("formTitle").textContent = texts.formTitle;
+            document.getElementById("registerTitle").textContent = texts.registerTitle;
+            document.getElementById("nameLabel").textContent = texts.nameLabel;
+            document.getElementById("passwordLabel").textContent = texts.passwordLabel;
+            document.getElementById("ageLabel").textContent = texts.ageLabel;
+            document.getElementById("genderLabel").textContent = texts.genderLabel;
+            document.getElementById("loginButton").textContent = texts.loginButton;
+            document.getElementById("addressLabel").textContent = texts.addressLabel;
+            document.getElementById("pinCodeLabel").textContent = texts.pinCodeLabel;
+            document.getElementById("phoneLabel").textContent = texts.phoneLabel;
+            document.getElementById("registerButton").textContent = texts.registerButton;
+        }
+
+        // Call changeLanguage on page load to default to English
+        window.onload = function() {
+            changeLanguage();
+        };
+    </script>
+
+</body>
+</html>
